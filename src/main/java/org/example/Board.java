@@ -17,12 +17,12 @@ public class Board extends JPanel {
     private final int NUM_IMAGES = 13;
     private final int CELL_SIZE = 15;
 
-    private final int COVER_FOR_CELL = 10;
-    private final int MARK_FOR_CELL = 10;
-    private final int EMPTY_CELL = 0;
-    private final int MINE_CELL = 9;
-    private final int COVERED_MINE_CELL = MINE_CELL + COVER_FOR_CELL;
-    private final int MARKED_MINE_CELL = COVERED_MINE_CELL + MARK_FOR_CELL;
+    private static final int COVER_FOR_CELL = 10;
+    private static final int MARK_FOR_CELL = 10;
+    public static final int EMPTY_CELL = 0;
+    public static final int MINE_CELL = 9;
+    public static final int COVERED_MINE_CELL = MINE_CELL + COVER_FOR_CELL;
+    public static final int MARKED_MINE_CELL = COVERED_MINE_CELL + MARK_FOR_CELL;
 
     private final int DRAW_MINE = 9;
     private final int DRAW_COVER = 10;
@@ -238,6 +238,29 @@ public class Board extends JPanel {
             statusbar.setText("Game won");
         } else if (!inGame)
             statusbar.setText("Game lost");
+    }
+
+    // Add the following methods to the Board class
+    public int getMinesLeft() {
+        int count = 0;
+        for (int cell : field) {
+            if (cell == COVERED_MINE_CELL || cell == MARKED_MINE_CELL) {
+                count++;
+            }
+        }
+        return count;
+    }
+
+    public boolean isInGame() {
+        return inGame;
+    }
+
+    public void setInGame(boolean inGame) {
+        this.inGame = inGame;
+    }
+
+    public int[] getField() {
+        return field;
     }
 
     class MinesAdapter extends MouseAdapter {
